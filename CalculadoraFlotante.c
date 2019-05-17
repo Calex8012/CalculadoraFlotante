@@ -11,3 +11,20 @@
    #use RS232(BAUD=9600, XMIT=TX_232, BITS=8,PARITY=N, STOP=1, UART1, RCV=RX_232)
    #use fast_io(c)
 #endif
+
+int flagSerial=0,flagEcho=0,flagMostrar=0,flagEnter=0;
+int contador_buffer=0;
+char caracter;
+char buffer[30]={""};
+
+#INT_RDA
+void isrRDA(void){
+   flagSerial=1;
+   flagEcho=1;
+   caracter=getc();
+}
+
+void main(){
+   set_tris_c(0x08);
+   putc(caracter);
+}
