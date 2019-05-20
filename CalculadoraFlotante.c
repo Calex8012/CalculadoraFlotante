@@ -22,7 +22,8 @@ void isrRDA(void){
    flagSerial=1;
    flagEcho=1;
    caracter=getc();
-   buffer[contador_buffer+1]=caracter;
+   buffer[contador_buffer]=caracter;
+   contador_buffer+=1;
    
 }
    
@@ -32,4 +33,7 @@ void main(){
    enable_interrupts(INT_RDA);
    enable_interrupts(GLOBAL);
    putc(caracter);
+   if(contador_buffer>30){
+      printf("Error");
+   }
 }
