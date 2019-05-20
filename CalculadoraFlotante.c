@@ -14,20 +14,24 @@
    #use fast_io(c)
 #endif
 
-int flagSerial=0,flagEcho=0,flagMostrar=0,flagEnter=0;
+int flagSerial=0,flagEcho=0,flagMostrar=0,flagEnter=0,PosicionFinal=0;
 int contador_buffer=0;
 char caracter;
 char buffer[30]={""};
+float num1,num2;
+//Variables de Conversión
+char opcion;
+char BufferNum1[10]={""};
+char BufferNum2[10]={""};
 
 #INT_RDA
 void isrRDA(void){
    flagEcho=1;
    flagSerial=1;
    caracter=getc();
-   buffer[contador_buffer]=caracter;
-   contador_buffer++;
-   if(contador_buffer>30){
-      printf("Error");
+   if(contador_buffer<=30){
+      buffer[contador_buffer]=caracter;
+      contador_buffer++;
    }
 }
    
@@ -41,6 +45,18 @@ void main(void){
          putc(caracter);
          flagSerial=0;
       }
+      for(int i=0;i<31;i++)
+      {
+         if(buffer[i]==44)
+         {
+            PosicionFinal=i;
+         }
+      }
+      for(int j=0;j<=PosicionFinal;j++)
+      {
+         buffer[j]=BufferNum1[j];
+      }
+      
    }
    
   
